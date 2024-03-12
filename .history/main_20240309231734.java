@@ -1,1 +1,0 @@
-// Higher level --------> Translator------> Low level 

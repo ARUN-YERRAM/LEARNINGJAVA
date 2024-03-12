@@ -1,7 +1,0 @@
-/**
- * main
- */
-public class main {
-
-    
-}
