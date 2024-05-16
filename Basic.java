@@ -1,5 +1,6 @@
 import java.util.*;
 
+
 public class Basic {
     public static void main(String[] args){
         Scanner sc = new Scanner(System.in);
@@ -35,6 +36,21 @@ public class Basic {
 
 
 
+        // .............Operators...........
+
+        // Arithmetic,relational,logical,assignment,bitwise,unary,Ternary
+
+        int a = 10;
+        int b = 20;
+        System.out.println(a<=b || b==a);
+
+        a+= b;
+        System.out.println(a);
+        System.out.println(a/b+a*b);
+
+        // ?, assignment,unary ...........right to left ............. else left to right..........
+        
     }
     
 }
+
