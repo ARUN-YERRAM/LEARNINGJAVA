@@ -1,0 +1,38 @@
+public class Exception {
+    public static void main(String [] args){
+
+        try{
+
+            int a = 10;
+            int b = 0;
+
+            System.out.println(a/b);
+        }catch(Exception e){
+
+            System.out.println(e);
+        }
+            // Load the MySQL JDBC driver
+            // Class.forName("com.mysql.jdbc.Driver");
+
+            // // Create a connection
+            // String url = "jdbc:mysql://localhost:3306/learningjdbc";
+            // String username = "root";
+            // String password = "SRBAA1994";
+            // Connection con = DriverManager.getConnection(url,username,password);
+
+
+            // // Define the SQL query to create a table
+            // String query = "CREATE TABLE t1 (tID INT(20) PRIMARY KEY AUTO_INCREMENT, tName VARCHAR(20) NOT NULL, tCity VARCHAR(4000))";
+
+            // // Create a statement
+            // Statement stmt = con.createStatement();
+
+            // // Execute the SQL query to create the table
+            // stmt.executeUpdate(query);
+
+            // System.out.println("Table created in database.");
+        }
+    }
+
+
+}
