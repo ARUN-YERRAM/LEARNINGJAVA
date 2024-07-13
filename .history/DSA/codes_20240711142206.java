@@ -61,7 +61,7 @@ public class codes {
         @Override
         public void run() {
             try {
-                Thread.sleep(1000); 
+                Thread.sleep(1000); // Ensure this task runs after the data is written
                 lock.lock();
                 try (BufferedReader reader = new BufferedReader(new FileReader(CSV_FILE))) {
                     List<Employee> sortedData = new ArrayList<>();
