@@ -7,7 +7,7 @@ public class Test2
 {
 	public static void main(String args[])
 	{
-		Resistor r1=new Resistor("red","black","orange");
+		Resistor r1=new Resistor("red","Black","orange");
 		System.out.println(r1.getResistance());
 	}
 }
@@ -20,8 +20,7 @@ class Resistor
 	String band3;
 	double value; // Resistor value (Ohms)
 
-	public Resistor()
-	{
+	public Resistor(){
 		band1=band2=band3="";
 		value=0.0;
 	}
@@ -31,8 +30,8 @@ class Resistor
 		band1=b1;
 		band2=b2;
 		band3=b3;
-		color=new HashMap<>();
-		color.put("black",0);
+		color = new HashMap<>();
+		color.put("Black",0);
 		color.put("brown",1);
 		color.put("red",2);
 		color.put("orange",3);
@@ -46,13 +45,16 @@ class Resistor
 
 	public String getResistance()
 	{
-		int firstdig=color.get(band1);
-		int seconddig=color.get(band2);
-		int thirddig=(int)Math.pow(10,color.get(band3));
-		String value1=Integer.toString(firstdig)+Integer.toString(seconddig);
-		value=Integer.parseInt(value1)*thirddig;
-		value=value/1000;
-		value1=value+"Kilo_ohms";
-		return value1;
+		int f = color.get(band1);
+		int s = color.get(band2);
+		int t = color.get(band3);
+
+		String v = Integer.toString(f) + Integer.toString(s);
+		int v1 = (int)Math.pow(10,t);
+		v1 *= Integer.parseInt(v);
+		v1 = v1/1000;
+		v = Integer.toString(v1)+"Kilo_Ohms";
+		return v;
+
 	}
 }

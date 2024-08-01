@@ -45,7 +45,7 @@ public class Test1C
 			System.out.println("Enter the number of man of the matches");
 			int mom=sc.nextInt();
 			amount+=8000;
-			amount+=amount*0.25f*mom;
+			amount += amount*0.25f*mom;
 			System.out.println(amount);
 			System.exit(100);
 		}
@@ -57,3 +57,7 @@ public class Test1C
 		}
 	}
 }
+
+
+
+

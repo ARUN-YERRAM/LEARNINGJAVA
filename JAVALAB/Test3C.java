@@ -1,31 +1,29 @@
 package JAVALAB;
 
-class Test3C
-{
+import java.util.*;
 
-	public static int maxWater(int[] arr, int n)
-	{
-		int res = 0;
-		for(int i = 1; i < n - 1; i++)
-		{
-			int left = arr[i];
-			for(int j = 0; j < i; j++)
-			{
-				left = Math.max(left, arr[j]);
-			}
-			int right = arr[i];
-			for(int j = i + 1; j < n; j++)
-			{
-				right = Math.max(right, arr[j]);
-			}
-			res += Math.min(left, right) - arr[i];
-		}
-		return res;
-	}
-	public static void main(String[] args)
-	{
-		int[] arr = {3,0,0,2,0,4};
+public class Test3C{ 
+	public static void main(String [] args){
+		Scanner sc = new Scanner(System.in);
+		int arr[] = {3,0,0,2,0,4};
 		int n = arr.length;
-		System.out.print(maxWater(arr,n));
+		System.out.println(maxWater(arr,n));
+	}
+
+	public static int maxWater(int [] arr,int n){
+		int res = 0;
+		for(int i=1;i<n-1;i++){
+			int lmax = arr[i];
+			int rmax= arr[i];
+
+			for(int j=0;j<i;j++){
+				lmax = Math.max(lmax,arr[j]);
+			}
+			for(int j=i+1;j<n;j++){
+				rmax = Math.max(rmax,arr[j]);
+			} res += Math.min(lmax,rmax) - arr[i];
+		} 
+		// System.out.println(res);
+		return res;
 	}
 }

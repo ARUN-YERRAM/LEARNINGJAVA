@@ -1,7 +1,7 @@
 package JAVALAB;
 import java.util.*;
 
-class MySquare extends MyRectangle {
+class MySquare extends Test5 {
     public int length;
 
     public MySquare(int xcord, int ycord, int length) {
@@ -32,13 +32,13 @@ class MySquare extends MyRectangle {
 }
 
 
-class MyRectangle {
+class Test5 {
     public int v1x;
     public int v1y;
     public int v2x;
     public int v2y;
 
-    public MyRectangle(int ver1x, int ver1y, int ver2x, int ver2y) {
+    public Test5(int ver1x, int ver1y, int ver2x, int ver2y) {
         v1x = ver1x;
         v1y = ver1y;
         v2x = ver2x;
@@ -49,16 +49,16 @@ class MyRectangle {
         return Math.abs((v2x - v1x) * (v2y - v1y));
     }
 
-    public MyRectangle overlap(MyRectangle rect) {
+    public Test5 overlap(Test5 rect) {
         int x1 = Math.max(v1x, rect.v1x);
         int y1 = Math.max(v1y, rect.v1y);
         int x2 = Math.min(v2x, rect.v2x);
         int y2 = Math.min(v2y, rect.v2y);
 
         if (x1 > x2 || y1 > y2) {
-            return new MyRectangle(0, 0, 0, 0);
+            return new Test5(0, 0, 0, 0);
         } else {
-            return new MyRectangle(x1, y1, x2, y2);
+            return new Test5(x1, y1, x2, y2);
         }
     }
 
