@@ -32,18 +32,14 @@ class Test9B {
             String[] pairs = input.nextLine().split(" ");
             mapTwo.put(pairs[0], pairs[1]);
         }
-
         // Find common key-value pairs
         int count = 0;
         for (Map.Entry<String, String> entry : mapOne.entrySet()) {
             String key = entry.getKey();
             String value = entry.getValue();
 
-            if (mapTwo.containsKey(key) && mapTwo.get(key).equals(value)) {
-                count++;
-            }
+            if(mapTwo.containsKey(key) && mapTwo.get(key).equals(value))count++;
         }
-
         System.out.println("The number of key/value pairs are: " + count);
     }
 }

@@ -12,52 +12,48 @@ class ThreadFizzBuzz
 		{
 			if (i%15 == 0)
 			{				
-                			C t1=new C();
+				C t1 = new C();
 				t1.start();
 				t1.join();
 			}
             		else if (i%5==0)
 			{
-                			B t2=new B();
+				B t2 = new B();
 				t2.start();
 				t2.join();
 			}				
-            		else if (i%3 == 0) 
+				else if (i%3 == 0) 
 			{
-                			A t3=new A();
+				A t3=new A();
 				t3.start();
 				t3.join();
 			}                  
             		else 
-                			System.out.print(i+", ");  
+				System.out.print(i+", ");  
 			
 		}
 	}
 }
+
 class A extends Thread
 {
 	public void run()
 	{
 		System.out.print("fizz, ");
 	}
-
 }
-
-
 class B extends Thread
 {
 	public void run()
 	{
-	System.out.print("buzz" +", ");
+		System.out.print("buzz" +", ");
 	}
-
 }
 
 class C extends Thread
 {
 	public void run()
 	{
-	System.out.print("fizzbuzz" +", ");
+		System.out.print("fizzbuzz" +", ");
 	}
-
 }

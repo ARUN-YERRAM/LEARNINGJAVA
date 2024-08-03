@@ -16,8 +16,8 @@ class Test8BB {
         // Map to count the occurrences of each word
         Map<String, Integer> wordCountMap = new HashMap<>();
         for (String word : arr) {
-            int count = wordCountMap.getOrDefault(word, 0) + 1;
-            wordCountMap.put(word, count);
+            int cnt = wordCountMap.getOrDefault(word,0)+1;
+            wordCountMap.put(word,cnt);
         }
         
         // TreeMap to sort words by frequency (descending) and lexicographically (ascending)
@@ -31,17 +31,15 @@ class Test8BB {
                 return frequencyCompare;
             }
         });
-        
         sortedMap.putAll(wordCountMap);
         
         // Display the top k words
         int count = 0;
-        for (Map.Entry<String, Integer> entry : sortedMap.entrySet()) {
+        for (Map.Entry<String,Integer> entry:sortedMap.entrySet()){
             System.out.print(entry.getKey() + " ");
-            count++;
-            if (count == k) {
-                break;
-            }
+            if(count == k)break;
         }
     }
 }
+
+

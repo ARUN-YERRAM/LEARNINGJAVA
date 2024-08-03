@@ -6,6 +6,7 @@ import java.util.*;
 public class Test6A {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
+        // Hashtable<String, String> ht = new Hashtable<>();
         Hashtable<String, String> ht = new Hashtable<>();
         
         // Use try-with-resources to ensure resources are closed properly

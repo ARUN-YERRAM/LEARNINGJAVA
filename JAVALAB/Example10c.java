@@ -15,9 +15,9 @@ public class Example10c {
 		try
 		{
 			Class.forName("com.mysql.cj.jdbc.Driver");
-Connection con=DriverManager.getConnection("jdbc:mysql://localhost/test10b","root","SRBAA1994");
+			Connection con=DriverManager.getConnection("jdbc:mysql://localhost/test10b","root","SRBAA1994");
 			PreparedStatement pstmt = null;
-		String query = "INSERT INTO Department(deptno, dname, location)" + "VALUES (?, ?, ?)";
+			String query = "INSERT INTO Department(deptno, dname, location)" + "VALUES (?, ?, ?)";
 			pstmt = con.prepareStatement(query);
 			pstmt.setInt(1, dno);
 			pstmt.setString(2, dname);
@@ -36,3 +36,4 @@ Connection con=DriverManager.getConnection("jdbc:mysql://localhost/test10b","roo
 		input.close();
 	}
 }
+

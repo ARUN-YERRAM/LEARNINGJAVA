@@ -1,11 +1,11 @@
 package JAVALAB;
-
+import java.util.Collections;
 import java.util.*;
 
 class EmpSorting8a {
     public static void main(String[] args) {
         ArrayList<Employee> ar = new ArrayList<>();
-        ar.add(new Employee("John", 5));
+        ar.add(new Employee("john",55));
         ar.add(new Employee("Nic", 3));
         ar.add(new Employee("Roma", 9));
 
@@ -13,7 +13,7 @@ class EmpSorting8a {
         for (Employee emp : ar) {
             System.out.println(emp);
         }
-        Collections.sort(ar, new Sortbyexp());
+        Collections.sort(ar,new Sortbyexp());
 
         System.out.println("Sorted by Experience");
         for (Employee emp : ar) {
@@ -21,6 +21,7 @@ class EmpSorting8a {
         }
     }
 }
+
 class Employee {
     String empname;
     int exp;
@@ -36,9 +37,8 @@ class Employee {
     }
 }
 
-class Sortbyexp implements Comparator<Employee> {
-    @Override
-    public int compare(Employee a, Employee b) {
-        return Integer.compare(a.exp, b.exp);
+class Sortbyexp implements Comparator<Employee>{
+    public int compare(Employee a,Employee b){
+        return Integer.compare(a.exp,b.exp);
     }
 }

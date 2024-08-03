@@ -12,7 +12,7 @@ public class Example10a {
 		int deptNum = input.nextInt();
 		try
 		{
-			Class.forName("com.mysql.jdbc.Driver");
+			Class.forName("com.mysql.cj.jdbc.Driver");
 			Connection con= DriverManager.getConnection("jdbc:mysql://localhost/test","root","SRBAA1994");
 			Statement stmt=con.createStatement();
 			String sql = "select ename from employeee where deptno = "+deptNum+" order by ename asc";
@@ -23,7 +23,7 @@ public class Example10a {
         			for (int i = 1; i <= numberOfColumns; i++) 
 			{
         			if (i > 1) 
-System.out.print(" , ");
+						System.out.print(" , ");
         			String columnName = rsmd.getColumnName(i);
         			System.out.print(columnName);
       			}
