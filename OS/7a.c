@@ -16,21 +16,19 @@ int main(int argc, char *argv[])
         printf("Usage: %s <file/directory names>\n", argv[0]);
         return 1;
     }
-
+    
     for (i = 1; i < argc; i++) {
         printf("%s\n", argv[i]);
         if (stat(argv[i], &a) == -1) {
             perror("stat");
             continue;
         }
-
-        if (S_ISDIR(a.st_mode)) {
+        if (S_ISDIR(a.st_mode))
             printf("Is a directory\n");
-        } else if (S_ISREG(a.st_mode)) {
+        else if (S_ISREG(a.st_mode))
             printf("Is a regular file\n");
-        } else {
+        else 
             printf("Is another type of file\n");
-        }
 
         printf("FILE PROPERTIES\n");
         printf("Inode number: %ld\n", a.st_ino);
@@ -39,6 +37,5 @@ int main(int argc, char *argv[])
         printf("Permissions: %o\n", a.st_mode & 0777);
         printf("Size: %ld bytes\n\n", a.st_size);
     }
-
     return 0;
 }

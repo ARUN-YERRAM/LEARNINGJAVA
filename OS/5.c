@@ -25,10 +25,11 @@
 
 int main() {
     // P0, P1, P2, P3, P4 are the Process names here
-    int n, m, i, j, k;
+    int n, m, i, j, k, y;
     n = 5; // Number of processes
     m = 3; // Number of resources
-
+    y = 0;
+    int need[n][m];
     int alloc[5][3] = { { 0, 1, 0 }, // P0 
                         { 2, 0, 0 }, // P1 
                         { 3, 0, 2 }, // P2 
@@ -43,17 +44,11 @@ int main() {
 
     int avail[3] = { 3, 3, 2 }; // Available Resources
 
-    int f[n], ans[n], ind = 0;
-    for (k = 0; k < n; k++) {
-        f[k] = 0;
-    }
-    int need[n][m];
-    for (i = 0; i < n; i++) {
-        for (j = 0; j < m; j++) {
-            need[i][j] = max[i][j] - alloc[i][j];
-        }
-    }
-    int y = 0;
+    int f[n], ans[n], idx = 0;
+    for (k = 0; k < n; k++) f[k] = 0;
+
+    for (i = 0; i < n; i++) for (j = 0; j < m; j++) need[i][j] = max[i][j] - alloc[i][j];
+    
     for (k = 0; k < 5; k++) {
         for (i = 0; i < n; i++) {
             if (f[i] == 0) {
@@ -65,10 +60,9 @@ int main() {
                     }
                 }
                 if (flag == 0) {
-                    ans[ind++] = i;
-                    for (y = 0; y < m; y++) {
+                    ans[idx++] = i;
+                    for (y = 0; y < m; y++)
                         avail[y] += alloc[i][y];
-                    }
                     f[i] = 1;
                 }
             }
@@ -76,12 +70,13 @@ int main() {
     }
 
     printf("Following is the SAFE Sequence\n");
-    for (i = 0; i < n - 1; i++) {
+    for (i = 0; i < n - 1; i++)
         printf(" P%d ->", ans[i]);
-    }
-    printf(" P%d", ans[n - 1]);
 
+    printf(" P%d", ans[n - 1]);
     return (0);
 }
+
+
 
 
