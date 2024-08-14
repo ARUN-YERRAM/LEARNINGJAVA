@@ -1,0 +1,35 @@
+package DSA;
+
+public class thread implements Runnable{
+    private int threadNumber;
+
+    public thread(int threadNumber){
+        this.threadNumber = threadNumber;
+    }
+    @Override
+    public void run(){
+        for(int i=0;i<5;i++){
+            System.out.println(i+1 +" From threadNumber : " + threadNumber);
+
+            // if(threadNumber == 3){
+            //     throw new RuntimeException();
+            // }
+
+            try{
+                // Thread.sleep(1000);
+            }catch(InterruptedException e){
+                System.out.println(e);
+            }
+        }
+    }
+    public static void main(String[] args){
+
+        for(int i=0;i<5;i++){
+            thread t = new thread(i);
+            Thread
+            // thread t1 = new thread();
+            t.run();
+            // t1.start();
+        }
+    }
+}

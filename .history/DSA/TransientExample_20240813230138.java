@@ -19,8 +19,6 @@ public class TransientExample {
         try (ObjectInputStream in = new ObjectInputStream(new FileInputStream("user.txt"))) {
             User deserializedUser = (User) in.readObject();
             System.out.println("User object deserialized: " + deserializedUser.username);
-            System.out.println("User object deserialized: " + deserializedUser.password);
-
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }
