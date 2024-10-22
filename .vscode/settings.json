@@ -57,5 +57,7 @@
   "C_Cpp_Runner.showCompilationTime": false,
   "C_Cpp_Runner.useLinkTimeOptimization": false,
   "C_Cpp_Runner.msvcSecureNoWarnings": false,
-  "localaipilot.general.inlineSuggestions": true
+  "localaipilot.general.inlineSuggestions": true,
+  "pieces.cloudCapabilities": "Blended",
+  "pieces.telemetry": true
 }
