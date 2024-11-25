@@ -17,10 +17,9 @@ public class Basic {
 //         System.out.println("The float value is " + fl);
 // // 
         // sc.close();
-        
 
         System.out.println("Enter character");
-        char ch = sc.next().charAt(0);
+        char ch = sc.next().charA;
         System.out.println(ch);
 
 
