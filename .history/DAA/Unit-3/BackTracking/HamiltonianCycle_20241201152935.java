@@ -39,10 +39,9 @@ No Solution
   
 */
 
-
 import java.util.*;
 
-class HamiltonianCycle {
+class T {
     static int V; // Number of vertices
     int path[];
 
@@ -122,7 +121,8 @@ class HamiltonianCycle {
                 graph[i][j] = sc.nextInt();
 
         // Create an object and solve the problem
-        HamiltonianCycle obj = new HamiltonianCycle();
+        Test obj = new Test();
         obj.hamCycle(graph);
     }
 }
+
