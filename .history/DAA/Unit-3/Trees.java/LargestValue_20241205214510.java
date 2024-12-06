@@ -91,7 +91,7 @@ public class LargestValue
 	void insert(BinaryTreeNode temp, int key)
     { 
         if (temp == null) {
-            root = new BinaryTreeNode(key);
+            temp = new BinaryTreeNode(key);
             return;
         }
         Queue<BinaryTreeNode> q = new LinkedList<BinaryTreeNode>();

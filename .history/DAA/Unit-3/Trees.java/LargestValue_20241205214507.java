@@ -87,11 +87,11 @@ class Solution
 public class LargestValue 
 {
 	static BinaryTreeNode root;
-    static BinaryTreeNode temp = root;
+    static BinaryTreeNode temp;
 	void insert(BinaryTreeNode temp, int key)
     { 
         if (temp == null) {
-            root = new BinaryTreeNode(key);
+            temp = new BinaryTreeNode(key);
             return;
         }
         Queue<BinaryTreeNode> q = new LinkedList<BinaryTreeNode>();
