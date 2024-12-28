@@ -1,0 +1,69 @@
+hdfs
+
+Use: Displays the available HDFS commands.
+hdfs version
+
+Use: Shows the Hadoop version installed.
+hdfs dfs
+
+Use: Executes filesystem operations on HDFS.
+hdfs dfs -ls /
+
+Use: Lists files and directories in the root directory (/) of HDFS.
+hdfs dfs -mkdir /<directory_name>
+
+Use: Creates a new directory in HDFS.
+hdfs dfs -moveFromLocal <local_path> <hdfs_path>
+
+Use: Moves a file from the local filesystem to HDFS.
+hdfs dfs -copyFromLocal <local_path> <hdfs_path>
+
+Use: Copies a file from the local filesystem to HDFS.
+hdfs dfs -copyToLocal <hdfs_path> <local_path>
+
+Use: Copies a file from HDFS to the local filesystem.
+hdfs dfs -cat <hdfs_file>
+
+Use: Displays the content of an HDFS file.
+hdfs dfs -touchz <hdfs_file>
+
+Use: Creates an empty file (0 bytes) in HDFS.
+hdfs dfs -mv <source_path> <destination_path>
+
+Use: Moves a file or directory within HDFS.
+hdfs dfs -cp <source_path> <destination_path>
+
+Use: Copies a file or directory within HDFS.
+hdfs dfs -rm <hdfs_path>
+
+Use: Deletes a file from HDFS.
+hdfs dfs -rm -r <hdfs_directory>
+
+Use: Deletes a directory and its contents from HDFS.
+hdfs dfs -put <local_file> <hdfs_path>
+
+Use: Puts (uploads) a local file into HDFS.
+hdfs dfs -getfacl <hdfs_path>
+
+Use: Retrieves ACL permissions of a file or directory in HDFS.
+hdfs dfs -count <hdfs_path>
+
+Use: Displays the number of directories and files in the specified HDFS path.
+hdfs fsck <hdfs_path>
+
+Use: Checks the health of HDFS.
+hdfs dfs -stat "<format>" <hdfs_file>
+
+Use: Shows the status (details) of an HDFS file or directory.
+hdfs dfs -du <hdfs_file>
+
+Use: Displays the size of a file or directory in HDFS.
+hdfs dfs -get <hdfs_file> <local_path>
+
+Use: Copies a file from HDFS to the local filesystem.
+hdfs dfs -chmod <permissions> <hdfs_path>
+
+Use: Changes the permissions of a file or directory in HDFS.
+hdfs dfs -chown <user:group> <hdfs_path>
+
+Use: Changes the ownership of a file or directory in HDFS.

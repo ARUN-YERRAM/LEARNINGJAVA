@@ -1,0 +1,47 @@
+create a file data1.txt
+1,2,3
+4,2,1
+8,3,4
+4,3,3
+create data2.txt file
+1,2,3
+4,2,1
+4,3,4
+4,3,4
+Commands:\
+pig -x local
+a = load '/home/cloudera/data1.txt' using PigStorage(',') as (a1:int, a2:int, a3:int);
+b = load '/home/cloudera/data2.txt' using PigStorage(',') as (a1:int, a2:int, a3:int);
+DUMP a;
+DUMP b;
+store a into '/home/cloudera/data1out.txt' using PigStorage(',');
+store a into '/home/cloudera/data1out' using PigStorage('.');
+c = union a, b;
+DUMP c;
+split c into d if (a1 < 4), e if (a1 > 4);
+DUMP d;
+DUMP e;
+f = order b by $0 DESC;
+DUMP f;
+g = order b by $0 ASC;
+DUMP g;
+h = limit g 2;
+DUMP h;
+i = filter c by $0 == 1 and $1 == 2;
+DUMP i;
+j = distinct c;
+DUMP j;
+k = foreach j generate $0, $1, $2 - 1;
+DUMP k;
+l = join a by $0, b by $2;
+DUMP l;
+m = join a by $0 left outer, b by $2;
+DUMP m;
+n = join a by $0 right, b by $2;
+DUMP n;
+o = group c by $0;
+DUMP o;
+p = cogroup a by $0, b by $0;
+DUMP p;
+r = cross a, b;
+DUMP r;

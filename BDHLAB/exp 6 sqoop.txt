@@ -1,0 +1,44 @@
+Step 1:
+======
+Terminal 1: [MYSQL]                                                                                                     
+mysql -u root -p
+cloudera [enter the password but u can't see it]
+CREATE DATABASE kmit;
+GRANT ALL PRIVILEGES ON kmit.* TO ''@'localhost';
+USE kmit;
+CREATE TABLE emp (id int, name varchar (40), age int, dept varchar (20));
+Insert into emp values (101, 'Ram',25,'HR');
+Insert into emp values (102, 'Shyam',24,'IT');
+Insert into emp values (103, 'John',26,'IT');
+Insert into emp values (104, 'Sam',25,'IT');
+Insert into emp values (105, 'Mark',24,'IT');
+Insert into emp values (106, 'Mary',25,'IT');
+select * from emp;
+---------------AFTER GETTING THE OUTPUT 1--------------------------
+Step 3:
+=====
+TRUNCATE TABLE emp;
+select * from emp; (u get 'empty set' comment)
+Again type "select * from emp;"
+# Take screenshots of both tables (if he asks u to upload screensht)
+============================================================================
+Step 2:
+======
+Terminal 2: [CLOUDERA]
+sqoop import \
+--connect jdbc:mysql://localhost/kmit \
+--username root \
+--password cloudera \
+--table emp \
+--m 1
+hdfs dfs -cat emp/part-m-00000
+(the output is in csv form)
+------------------NOW GO FOR EXPORT-------------------------------
+Step 4:
+======
+sqoop export \
+--connect jdbc:mysql://localhost/kmit \
+--username root \
+--password cloudera \
+--table emp \
+--export-dir emp

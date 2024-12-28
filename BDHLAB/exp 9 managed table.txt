@@ -1,0 +1,126 @@
+Practical 10: Create Managed table and load a csv file from local storage. Verify the location of table data in HDFS and perform query operations. Delete the table and verify the data in HDFS.
+==========================================================================================================================================================
+
+Disclaimer: Type all the hive commands in one terminal and the other commands in other terminal
+1) create few files as follows:
+
+[cloudera@quickstart ~]$ vi abc.txt
+tejas,150000,IT
+mohammad,200000,IT
+ram,200000,HR
+Naresh,200000,FIN
+[cloudera@quickstart ~]$ vi abc1.txt
+srinivas,250000,IT
+akilesh,250000,IT
+aswini,250000,IT
+[cloudera@quickstart ~]$ vi emp.txt
+swetha,250000,IT
+anamika,200000,FIN
+tarun,300000,HR
+
+2) Create a directory on hdfs using following command
+[cloudera@quickstart ~]$ hdfs dfs -mkdir /demo
+3) Copy all the created files from local file system to HDFS
+[cloudera@quickstart ~]$ hdfs dfs -put abc.txt /demo
+[cloudera@quickstart ~]$ hdfs dfs -put abc1.txt /demo
+[cloudera@quickstart ~]$ hdfs dfs -put emp.txt /demo
+
+4) Check all the files have copied to "/demo" directory on HDFS
+[cloudera@quickstart ~]$ hdfs dfs -ls /demo
+Found 5 items
+-rw-r--r--   1 cloudera supergroup         67 2023-11-30 06:38 /demo/abc.txt
+-rw-r--r--   1 cloudera supergroup         54 2023-11-30 06:38 /demo/abc1.txt
+-rw-r--r--   1 cloudera supergroup         54 2023-11-30 06:38 /demo/emp.txt
+
+5) Launch the hive shell using following command:
+[cloudera@quickstart ~]$ hive
+2023-11-30 06:41:51,744 WARN  [main] mapreduce.TableMapReduceUtil: The hbase-prefix-tree module jar containing PrefixTreeCodec is not present.  Continuing without it.
+Logging initialized using configuration in file:/etc/hive/conf.dist/hive-log4j.properties
+WARNING: Hive CLI is deprecated and migration to Beeline is recommended.
+
+6) Check the databases 
+hive> show databases;
+OK
+default
+Time taken: 0.012 seconds, Fetched: 1 row(s)
+
+7) Create a database
+hive> create database kmit;
+OK
+Time taken: 0.208 seconds
+
+8) Use the created database
+hive> use kmit;
+OK
+Time taken: 0.021 seconds
+
+9) Check the tables available in the database
+hive> show tables;
+OK
+Time taken: 0.029 seconds
+
+10) Create a Managed table
+hive> create table employee(name string, salary float, dept string)
+    > row format delimited
+    > fields terminated by ',';
+OK
+Time taken: 0.214 seconds
+
+11) Load contents from a file on local file system to Table in hive
+hive> load data local inpath '/home/cloudera/abc.txt' into table employee;
+Loading data to table kmit.employee
+Table kmit.employee stats: [numFiles=1, totalSize=67]
+OK
+Time taken: 0.681 seconds
+
+12) Read the data from the Managed table named employee
+hive> select * from employee;
+
+OK
+tejas		150000.0	IT
+mohammad	200000.0	IT
+ram		200000.0	HR
+Naresh		200000.0	FIN
+Time taken: 0.311 seconds, Fetched: 4 row(s)
+
+13) Now load the data from a file from HDFS to Table
+Check the location of file on HDFS 
+=========================================================
+[cloudera@quickstart ~]$ hdfs dfs -ls /demo
+Found 5 items
+-rw-r--r--   1 cloudera supergroup         67 2023-11-30 06:38 /demo/abc.txt
+-rw-r--r--   1 cloudera supergroup         54 2023-11-30 06:38 /demo/abc1.txt
+-rw-r--r--   1 cloudera supergroup         54 2023-11-30 06:38 /demo/emp.txt
+
+Now load the data (abc1.txt) to the table (employee)
+=============================================================
+hive> load data inpath '/demo/abc1.txt' into table employee;
+Loading data to table kmit.employee
+Table kmit.employee stats: [numFiles=2, totalSize=121]
+OK
+Time taken: 0.401 seconds
+
+Now check the files in the location
+==========================================================
+[cloudera@quickstart ~]$ hdfs dfs -ls /demo
+Found 4 items
+-rw-r--r--   1 cloudera supergroup         67 2023-11-30 06:38 /demo/abc.txt
+-rw-r--r--   1 cloudera supergroup         54 2023-11-30 06:38 /demo/emp.txt
+
+14) Check the Schema of the table
+hive> describe employee;
+OK
+name                	string              	                    
+salary              	float               	                    
+dept                	string              	                    
+Time taken: 0.093 seconds, Fetched: 3 row(s)
+
+15) Check that you have created a managed table
+hive> describe extended employee;
+OK
+name                	string              	                    
+salary              	float               	                    
+dept                	string              	                    
+	 	 
+Detailed Table Information	Table(tableName:employee, dbName:kmit, owner:cloudera, createTime:1701355650, lastAccessTime:0, retention:0, sd:StorageDescriptor(cols:[FieldSchema(name:name, type:string, comment:null), FieldSchema(name:salary, type:float, comment:null), FieldSchema(name:dept, type:string, comment:null)], location:hdfs://quickstart.cloudera:8020/user/hive/warehouse/kmit.db/employee, inputFormat:org.apache.hadoop.mapred.TextInputFormat, outputFormat:org.apache.hadoop.hive.ql.io.HiveIgnoreKeyTextOutputFormat, compressed:false, numBuckets:-1, serdeInfo:SerDeInfo(name:null, serializationLib:org.apache.hadoop.hive.serde2.lazy.LazySimpleSerDe, parameters:{serialization.format=,, field.delim=,}), bucketCols:[], sortCols:[], parameters:{}, skewedInfo:SkewedInfo(skewedColNames:[], skewedColValues:[], skewedColValueLocationMaps:{}), storedAsSubDirectories:false), partitionKeys:[], parameters:{numFiles=2, transient_lastDdlTime=1701356144, COLUMN_STATS_ACCURATE=true, totalSize=121}, viewOriginalText:null, viewExpandedText:null, tableType:MANAGED_TABLE)	
+Time taken: 0.084 seconds, Fetched: 5 row(s)

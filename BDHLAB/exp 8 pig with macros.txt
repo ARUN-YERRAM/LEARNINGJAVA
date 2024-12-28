@@ -1,0 +1,91 @@
+Practical 9. Implement a pig script to analyze the data using UDFs.
+
+
+1) DEFINE
+
+1) Create a document named data.txt
+1,2,3
+4,2,1
+8,3,4
+4,3,3
+
+2) Create a document named data1.txt
+1,2,3
+4,2,1
+4,3,4
+4,3,4
+
+3) pig -x local
+
+grunt> a = load '/home/cloudera/data.txt' using PigStorage(',') as(a1:int,a2:int,a3:int);
+
+grunt> dump a;
+(1,2,3)
+(4,2,1)
+(8,3,4)
+(4,3,3)
+
+grunt> b = load '/home/cloudera/data1.txt' using PigStorage(',') as (a1:int,a2:int,a3:int);
+
+grunt> dump b;
+(1,2,3)
+(4,2,1)
+(4,3,4)
+(3,2,1)
+
+grunt> c = union a,b;
+
+grunt> dump c;
+(1,2,3)
+(4,2,1)
+(4,3,4)
+(3,2,1)
+(1,2,3)
+(4,2,1)
+(8,3,4)
+(4,3,3)
+
+grunt> DEFINE myfilter(relvar,colvar) returns x{ $x = filter $relvar by $colvar<=2; };
+
+grunt> z = myfilter(c,$1);
+
+grunt> dump z;
+(1,2,3)
+(4,2,1)
+(1,2,3)
+(4,2,1)
+(3,2,1)
+
+
+
+2) IMPORT
+
+[cloudera@quickstart ~]$ hdfs dfs -mkdir /demo
+
+[cloudera@quickstart ~]$ hdfs dfs -put data /demo
+
+[cloudera@quickstart ~]$ hdfs dfs -put data1 /demo
+
+[cloudera@quickstart ~]$ hdfs dfs -ls /demo
+
+-rw-r--r-- 1 cloudera supergroup 24 2023-04-09 06:42 /demo/data
+-rw-r--r-- 1 cloudera supergroup 24 2023-04-09 06:42 /demo/data1
+
+
+Create a new file with mymacro.macro with following content
+=============================================================
+DEFINE myfilter(relvar,colvar) returns x{ $x = filter $relvar by $colvar<=2; };
+
+
+create a file my.pig with following content
+==========================================================
+IMPORT '/home/cloudera/mymacro.macro';
+a = load '/demo/data' using PigStorage(',') as (a1:int,a2:int,a3:int);
+b = load '/demo/data1' using PigStorage(',') as (a1:int,a2:int,a3:int);
+c = union a,b;
+data1 = myfilter(c,a1);
+dump data1;
+
+Running the file:
+=============
+pig /home/cloudera/my.pig

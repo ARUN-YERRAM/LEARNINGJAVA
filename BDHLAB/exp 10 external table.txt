@@ -1,0 +1,92 @@
+Practical 11: Create External table and load a csv file from local storage. The data should be stored in ORC format in specified folder in HDFS. Perform query operations and verify the data in HDFS. Delete the table and verify the data in HDFS.
+=====================================================================================================================================================================================================
+
+[cloudera@quickstart ~]$ vi abc.txt
+tejas,150000,IT
+mohammad,200000,IT
+ram,200000,HR
+Naresh,200000,FIN
+[cloudera@quickstart ~]$ vi emp.txt
+swetha,250000,IT
+anamika,200000,FIN
+tarun,300000,HR
+
+16) Now create a external table 
+Now create a directory on hdfs
+========================================================
+[cloudera@quickstart ~]$ hdfs dfs -mkdir /demo1
+
+3) Copy all the created files from local file system to HDFS
+=================================================
+[cloudera@quickstart ~]$ hdfs dfs -put abc.txt /demo1
+[cloudera@quickstart ~]$ hdfs dfs -put emp.txt /demo1
+
+[cloudera@quickstart ~]$ hdfs dfs -ls /demo1
+Found 1 items
+-rwxr-xr-x   1 cloudera supergroup         67 2023-11-30 06:38 /demo1/abc.txt
+-rwxr-xr-x   1 cloudera supergroup         67 2023-11-30 06:38 /demo1/emp.txt
+
+Now create a external table
+=========================================================
+hive> create external table employee2(name string, salary float, dept string)
+    > row format delimited
+    > fields terminated by ','
+    > location '/demo1';
+OK
+Time taken: 0.054 seconds
+
+
+Read the data from the external table
+=========================================================
+hive> select * from employee2;
+OK
+tejas	150000.0	IT
+mohammad	200000.0	IT
+ram	200000.0	HR
+Naresh	200000.0	FIN
+Time taken: 0.089 seconds, Fetched: 4 row(s)
+
+How to Overwrite data in table
+========================================================
+hive> select * from employee2;
+OK
+tejas	150000.0	IT
+mohammad	200000.0	IT
+ram	200000.0	HR
+Naresh	200000.0	FIN
+Time taken: 0.07 seconds, Fetched: 4 row(s)
+
+hive> load data inpath '/demo1/emp.txt' overwrite into table employee2;
+
+Loading data to table kmit.employee2
+Table kmit.employee2 stats: [numFiles=1, numRows=0, totalSize=52, rawDataSize=0]
+OK
+Time taken: 0.392 seconds
+
+hive> select * from employee2;
+OK
+swetha	250000.0	IT
+anamika	200000.0	FIN
+tarun	300000.0	HR
+Time taken: 0.083 seconds, Fetched: 3 row(s)
+
+How to drop a table
+=========================================
+hive> show tables;
+OK
+employee
+employee2
+Time taken: 0.015 seconds, Fetched: 2 row(s)
+
+hive> drop table employee;
+OK
+Time taken: 0.124 seconds
+hive> drop table employee2;
+OK
+Time taken: 0.113 seconds
+
+hive> show tables;
+OK
+Time taken: 0.02 seconds
+
+

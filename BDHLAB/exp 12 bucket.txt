@@ -1,0 +1,164 @@
+Practical 13: Create and manage a table with bucketing concept and execute queries Bucketing Concept:
+=============================================================
+
+[cloudera@quickstart ~]$ vi abc.txt
+tejas,150000,IT
+mohammad,200000,IT
+ram,200000,HR
+Naresh,200000,FIN
+[cloudera@quickstart ~]$ vi abc1.txt
+srinivas,250000,IT
+akilesh,250000,IT
+aswini,250000,IT
+
+hive> create table employee(name string, salary float, dept string) 
+> partitioned by(country string, state string) 
+> row format delimited fields terminated by ',';
+
+hive> load data local inpath 'abc.txt' into table employee
+    > partition(country='INDIA',state='KAR');
+
+hive> load data local inpath 'abc1.txt' into table employee
+    > partition(country='INDIA',state='MH');
+
+hive> select * from employee;
+
+1) Set the bucketing concept
+hive> set hive.enforce.bucketing = true;
+
+2) To see the current value of any property.
+hive> set hive.enforce.bucketing;
+hive.enforce.bucketing=true
+
+3) See the employee table data
+hive> select * from employee;
+OK
+tejas	150000.0	IT	INDIA	KAR
+mohammad	200000.0	IT	INDIA	KAR
+ram	200000.0	HR	INDIA	KAR
+Naresh	200000.0	FIN	INDIA	KAR
+srinivas	250000.0	IT	INDIA	MH
+akilesh	250000.0	IT	INDIA	MH
+aswini	250000.0	IT	INDIA	MH
+4) Create the bucketed table
+hive> create table bucketed_table(name string,salary float, dept string, country string, state string)
+    > clustered by (dept) into 4 buckets;
+
+OK
+Time taken: 0.104 seconds
+
+5) Insert data from the table employee to bucketed table
+hive> insert overwrite table bucketed_table
+    > select * from employee;
+
+6) Read the data from the bucketed_table
+hive> select * from bucketed_table 
+    > tablesample(bucket 3 out of 4 on dept);
+OK
+ram	200000.0	HR	INDIA	KAR
+Time taken: 0.118 seconds, Fetched: 1 row(s)
+
+7) To view the structure of the file system
+[cloudera@quickstart ~]$ hdfs dfs -ls /user/hive/warehouse/bucketed_table
+
+Found 4 items
+-rwxrwxrwx   1 cloudera supergroup          0 2023-11-30 09:27 /user/hive/warehouse/kmit.db/bucketed_table/000000_0
+-rwxrwxrwx   1 cloudera supergroup          0 2023-11-30 09:27 /user/hive/warehouse/kmit.db/bucketed_table/000001_0
+-rwxrwxrwx   1 cloudera supergroup         26 2023-11-30 09:27 /user/hive/warehouse/kmit.db/bucketed_table/000002_0
+-rwxrwxrwx   1 cloudera supergroup        176 2023-11-30 09:27 /user/hive/warehouse/kmit.db/bucketed_table/000003_0
+
+
+Importing Data 
+===========================================================
+Insert a single table
+==============================================================
+1) Firstly create a table 
+hive> create table target(name string, salary float)
+    > row format delimited
+    > fields terminated by ',';
+
+OK
+Time taken: 0.148 seconds
+
+2) Use INSERT command to load the data from one table to other table
+hive> insert overwrite table target
+    > select name,salary
+    > from employee;
+
+Multi Table Insert 
+==============================================================
+hive> create table target1(name string,dept string)
+    > row format delimited
+    > fields terminated by ',';
+
+OK
+Time taken: 0.102 seconds
+hive> from employee
+    > insert overwrite table target1
+    > select name,dept
+    > insert overwrite table target
+    > select name,salary;
+
+Create table ... as select (CTAS)
+=======================================================
+hive> create table sample
+    > as
+    > select name,dept
+    > from employee;
+
+Altering the table
+=======================================
+1) Rename the table
+hive> Alter table sample rename to example;
+OK
+Time taken: 0.177 seconds
+
+hive> show tables;
+OK
+bucketed_table
+employee
+example
+target
+target1
+
+2) Alter to add new columns to the existing table
+hive> select * from example;
+OK
+tejas	IT
+mohammad	IT
+ram	HR
+Naresh	FIN
+srinivas	IT
+akilesh	IT
+aswini	IT
+Time taken: 0.098 seconds, Fetched: 7 row(s)
+
+hive> alter table example add columns(new string);
+OK
+Time taken: 0.153 seconds
+
+hive> select * from example;
+
+OK
+tejas	IT	NULL
+mohammad	IT	NULL
+ram	HR	NULL
+Naresh	FIN	NULL
+srinivas	IT	NULL
+akilesh	IT	NULL
+aswini	IT	NULL
+Time taken: 0.088 seconds, Fetched: 7 row(s)
+
+Drop the table
+==================================================
+1) Delete the entire data of the table 
+hive> truncate table example;
+OK
+Time taken: 0.186 seconds
+
+hive> select * from example;
+OK
+Time taken: 0.099 seconds
+
+2) Drop the entire table
+hive> drop table example;

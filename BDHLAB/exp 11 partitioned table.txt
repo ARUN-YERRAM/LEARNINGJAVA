@@ -1,0 +1,99 @@
+[cloudera@quickstart ~]$ vi abc.txt
+tejas,150000,IT
+mohammad,200000,IT
+ram,200000,HR
+Naresh,200000,FIN
+[cloudera@quickstart ~]$ vi abc1.txt
+srinivas,250000,IT
+akilesh,250000,IT
+aswini,250000,IT
+
+
+1) Create a partitioned table
+hive> create table employee(name string, salary float, dept string) partitioned by(country string, state string) row format delimited fields terminated by ',';
+
+OK
+Time taken: 0.275 seconds
+
+2) Describe the table
+
+hive> describe employee;
+OK
+name                	string              	                    
+salary              	float               	                    
+dept                	string              	                    
+country             	string              	                    
+state               	string              	                    
+	 	 
+# Partition Information	 	 
+# col_name            	data_type           	comment             
+	 	 
+country             	string              	                    
+state               	string              	                    
+Time taken: 0.158 seconds, Fetched: 11 row(s)
+
+3) Load the data from local file system to table employee
+
+hive> load data local inpath 'abc.txt' into table employee
+    > partition(country='INDIA',state='KAR');
+
+Loading data to table kmit.employee partition (country=INDIA, state=KAR)
+Partition kmit.employee{country=INDIA, state=KAR} stats: [numFiles=1, numRows=0, totalSize=67, rawDataSize=0]
+OK
+Time taken: 1.282 seconds
+
+4) Read the data from employee table
+
+hive> select * from employee;
+
+OK
+tejas	150000.0	IT	INDIA	KAR
+mohammad	200000.0	IT	INDIA	KAR
+ram	200000.0	HR	INDIA	KAR
+Naresh	200000.0	FIN	INDIA	KAR
+Time taken: 0.21 seconds, Fetched: 4 row(s)
+
+5) Load the data from local file system to employee table 
+
+hive> load data local inpath 'abc1.txt' into table employee
+    > partition(country='INDIA',state='MH');
+
+Loading data to table kmit.employee partition (country=INDIA, state=MH)
+Partition kmit.employee{country=INDIA, state=MH} stats: [numFiles=1, numRows=0, totalSize=54, rawDataSize=0]
+OK
+Time taken: 0.829 seconds
+
+6) Read the data from employee table
+
+hive> select * from employee;
+
+OK
+tejas	150000.0	IT	INDIA	KAR
+mohammad	200000.0	IT	INDIA	KAR
+ram	200000.0	HR	INDIA	KAR
+Naresh	200000.0	FIN	INDIA	KAR
+srinivas	250000.0	IT	INDIA	MH
+akilesh	250000.0	IT	INDIA	MH
+aswini	250000.0	IT	INDIA	MH
+Time taken: 0.152 seconds, Fetched: 7 row(s)
+
+7) Where condition
+
+hive> select * from employee where state ='MH';
+
+
+OK
+srinivas	250000.0	IT	INDIA	MH
+akilesh	250000.0	IT	INDIA	MH
+aswini	250000.0	IT	INDIA	MH
+Time taken: 0.67 seconds, Fetched: 3 row(s)
+
+8) File system Structure how Partitioned Tables will handle data
+
+[cloudera@quickstart ~]$ hdfs dfs -ls /user/hive/warehouse/employee/country=INDIA
+
+Found 2 items
+
+drwxrwxrwx   - cloudera supergroup          0 2023-11-30 08:39 /user/hive/warehouse/kmit.db/employee/country=INDIA/state=KAR
+
+drwxrwxrwx   - cloudera supergroup          0 2023-11-30 08:42 /user/hive/warehouse/kmit.db/employee/country=INDIA/state=MH
