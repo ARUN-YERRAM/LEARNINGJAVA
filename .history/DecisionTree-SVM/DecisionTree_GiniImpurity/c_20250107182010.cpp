@@ -1,0 +1,2 @@
+
+while(getline(ss,sord,' '))
