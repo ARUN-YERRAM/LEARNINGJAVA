@@ -72,7 +72,6 @@ public class jeevan {
 	}
 }
 
-
 /* commands:
 nano text_file_name.txt (enter some text)
 cat text_file_name.txt
