@@ -1,7 +1,7 @@
 import tensorflow as tf
 import numpy as np
 
-
+# Generate random tensors
 a = tf.random.normal([4, 3, 3])
 print(a)
 a = tf.random.normal([4, 35, 8])
@@ -9,7 +9,7 @@ print(a)
 a = tf.random.normal([4, 3, 3])
 b = tf.random.normal([4, 3, 3])
 
-
+# Concatenate tensors along axis 2
 concat_result = tf.concat([a, b], axis=2)
 print(concat_result)
 
@@ -33,19 +33,19 @@ print(len(split_result_2))
 
 a = tf.ones([2, 2])
 
-
+# Compute the L1 norm of tensor x
 norm_l1 = tf.norm(x, ord=1)
 print(norm_l1)
 
-
+# Compute the L2 norm of tensor x
 norm_l2 = tf.norm(x, ord=2)
 print(norm_l2)
-print(norm_l2.numpy())
 
+# Compute the infinity norm of tensor x
 norm_inf = tf.norm(x, ord=np.inf)
-print("norm", norm_inf)
+print(norm_inf)
 
-
+# Reduce max and min values along axis 0 and axis 1
 reduce_max_axis_0 = tf.reduce_max(x, axis=0)
 print(reduce_max_axis_0)
 

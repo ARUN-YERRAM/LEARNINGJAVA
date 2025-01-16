@@ -1,6 +1,6 @@
 # Design and implement LSTM model with TensorFlow / Keras and check accuracy.
 
-
+import numpy as np
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Embedding, LSTM, Dense, Dropout
 from tensorflow.keras.datasets import imdb

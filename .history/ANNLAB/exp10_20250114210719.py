@@ -1,6 +1,6 @@
 # Design and implement LSTM model with TensorFlow / Keras and check accuracy.
 
-
+import numpy as np
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Embedding, LSTM, Dense, Dropout
 from tensorflow.keras.datasets import imdb
@@ -18,7 +18,7 @@ X_test = pad_sequences(X_test, maxlen=max_review_length)
 # Define the model
 embedding_vector_length = 32
 model = Sequential()
-model.add(Embedding(num_words, embedding_vector_length, input_length=max_review_length))
+model.add(Embedding(num_words, embedding_vector_length, max_review_length))
 model.add(Dropout(0.2))
 model.add(LSTM(32))
 model.add(Dense(256, activation='relu'))

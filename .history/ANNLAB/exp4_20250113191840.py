@@ -41,6 +41,7 @@ activation_funcs = ['relu', 'sigmoid', 'tanh']
 optimizers = [SGD(learning_rate=0.01), Adam(learning_rate=0.001), RMSprop(learning_rate=0.001)]
 
 
+
 for activation_func in activation_funcs:
     for optimizer_class in [SGD, Adam, RMSprop]:  
         optimizer = optimizer_class(learning_rate=0.001)  
@@ -48,4 +49,7 @@ for activation_func in activation_funcs:
         model.fit(x_train, y_train, epochs=50, batch_size=16, verbose=0)
         loss, accuracy = model.evaluate(x_test, y_test, verbose=0)
         print(f'Activation: {activation_func}, Optimizer: {optimizer.__class__.__name__}, Loss: {loss:.3f}, Accuracy: {accuracy:.3f}')
+
+        
+
 

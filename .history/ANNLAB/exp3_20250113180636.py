@@ -9,7 +9,9 @@ iris = load_iris()
 X = iris.data[:100, :2]
 y = iris.target[:100]
 
+
 y = np.where(y == 0, -1, 1)
+
 
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
@@ -45,4 +47,3 @@ for i in range(X_test.shape[0]):
 
 accuracy = correct_predictions / X_test.shape[0]
 print(f"Accuracy: {accuracy * 100:.2f}%")
-

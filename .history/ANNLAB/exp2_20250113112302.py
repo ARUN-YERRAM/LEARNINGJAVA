@@ -40,7 +40,7 @@ print(norm_l1)
 
 norm_l2 = tf.norm(x, ord=2)
 print(norm_l2)
-print(norm_l2.numpy())
+
 
 norm_inf = tf.norm(x, ord=np.inf)
 print("norm", norm_inf)

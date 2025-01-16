@@ -9,7 +9,7 @@ print(a)
 a = tf.random.normal([4, 3, 3])
 b = tf.random.normal([4, 3, 3])
 
-
+# Concatenate tensors along axis 2
 concat_result = tf.concat([a, b], axis=2)
 print(concat_result)
 
@@ -40,10 +40,10 @@ print(norm_l1)
 
 norm_l2 = tf.norm(x, ord=2)
 print(norm_l2)
-print(norm_l2.numpy())
+
 
 norm_inf = tf.norm(x, ord=np.inf)
-print("norm", norm_inf)
+print(norm_inf)
 
 
 reduce_max_axis_0 = tf.reduce_max(x, axis=0)

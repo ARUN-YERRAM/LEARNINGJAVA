@@ -49,3 +49,6 @@ for activation_func in activation_funcs:
         loss, accuracy = model.evaluate(x_test, y_test, verbose=0)
         print(f'Activation: {activation_func}, Optimizer: {optimizer.__class__.__name__}, Loss: {loss:.3f}, Accuracy: {accuracy:.3f}')
 
+        
+
+

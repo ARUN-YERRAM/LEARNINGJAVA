@@ -211,7 +211,6 @@ def vgg_model():
     ])
     return model
 
-
 # STEP 3: TRAIN AND EVALUATE MODELS
 def train_and_evaluate(model, model_name, epochs=10, batch_size=64):
     print(f"\nTraining {model_name}...\n")

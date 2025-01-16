@@ -45,4 +45,3 @@ for i in range(X_test.shape[0]):
 
 accuracy = correct_predictions / X_test.shape[0]
 print(f"Accuracy: {accuracy * 100:.2f}%")
-

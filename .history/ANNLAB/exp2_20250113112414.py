@@ -40,20 +40,8 @@ print(norm_l1)
 
 norm_l2 = tf.norm(x, ord=2)
 print(norm_l2)
-print(norm_l2.numpy())
+
 
 norm_inf = tf.norm(x, ord=np.inf)
 print("norm", norm_inf)
 
-
-reduce_max_axis_0 = tf.reduce_max(x, axis=0)
-print(reduce_max_axis_0)
-
-reduce_max_axis_1 = tf.reduce_max(x, axis=1)
-print(reduce_max_axis_1)
-
-reduce_min_axis_0 = tf.reduce_min(x, axis=0)
-print(reduce_min_axis_0)
-
-reduce_min_axis_1 = tf.reduce_min(x, axis=1)
-print(reduce_min_axis_1)

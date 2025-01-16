@@ -41,6 +41,8 @@ activation_funcs = ['relu', 'sigmoid', 'tanh']
 optimizers = [SGD(learning_rate=0.01), Adam(learning_rate=0.001), RMSprop(learning_rate=0.001)]
 
 
+
+
 for activation_func in activation_funcs:
     for optimizer_class in [SGD, Adam, RMSprop]:  
         optimizer = optimizer_class(learning_rate=0.001)  
