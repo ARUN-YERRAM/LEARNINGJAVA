@@ -69,6 +69,7 @@ public class Strobo{
             result.add("8" + middle + "8");
             result.add("9" + middle + "6");
         }
+        
         return result;
     }
 

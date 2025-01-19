@@ -118,11 +118,17 @@ class Mergesort_recursive {
 
         int[] rightArray = new int[n2];
 
+
+
         for (int i = 0; i < n1; i++)
+
             leftArray[i] = arr[left + i];
-            
+
         for (int j = 0; j < n2; j++)
+
             rightArray[j] = arr[mid + 1 + j];
+
+
 
         int i = 0, j = 0, k = left;
 

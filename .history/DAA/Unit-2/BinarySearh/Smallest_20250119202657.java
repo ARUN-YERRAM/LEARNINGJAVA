@@ -170,6 +170,7 @@ public class Smallest {
                 return num;
             }
         }
+
         return -1; // No common element found
     }
 
@@ -188,7 +189,7 @@ public class Smallest {
         }
         return false;
     }
-
+    
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
 

@@ -86,6 +86,7 @@ public class Koko{
         }
         return hours;
     }
+
     public static int minEatingSpeed(int[] piles, int h) {
         int left = 1;
         int right = Arrays.stream(piles).max().getAsInt();
@@ -98,6 +99,7 @@ public class Koko{
                 left = mid + 1;  // Increase k
             }
         }
+        
         return left;
     }
 

@@ -79,6 +79,7 @@ class LongestCommonPrefix {
                 high = mid - 1;
             }
         }
+
         return prefixLen == -1 ? "" : strs[0].substring(0, prefixLen);
     }
 

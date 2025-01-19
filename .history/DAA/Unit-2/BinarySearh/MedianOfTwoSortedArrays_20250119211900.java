@@ -37,6 +37,7 @@ public class MedianOfTwoSortedArrays {
                 left = m1 + 1; // Move right
             }
         }
+
         return 0.0; // Should not reach here
     }
 

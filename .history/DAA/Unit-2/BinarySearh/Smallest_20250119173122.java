@@ -170,6 +170,7 @@ public class Smallest {
                 return num;
             }
         }
+
         return -1; // No common element found
     }
 

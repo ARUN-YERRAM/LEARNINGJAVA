@@ -148,45 +148,63 @@ Sample Output-2:
 
 Explanation: There is no common element in all rows, so the output is -1.
 */import java.util.Scanner;
+import java.util.Scanner;
 
-public class Smallest { 
+public class Smallest {
 
+    // Method to find the smallest common element using binary search
     public static int smallestCommonElement(int[][] mat) {
         int m = mat.length, n = mat[0].length;
-        int[] freq = new int[10001]; 
-        
-        for (int i = 0; i < m; i++) {
-            boolean[] visited = new boolean[10001]; 
-            for (int j = 0; j < n; j++) {
-                int element = mat[i][j];
-                if (!visited[element]) {
-                    freq[element]++;
-                    visited[element] = true;
+
+        for (int num : mat[0]) { // Traverse each element in the first row
+            boolean isCommon = true;
+
+            for (int i = 1; i < m; i++) { // Check in each subsequent row
+                if (!binarySearch(mat[i], num)) {
+                    isCommon = false;
+                    break;
                 }
             }
-        }
-        
-        for (int i = 1; i <= 10000; i++) {
-            if (freq[i] == m) {
-                return i;
+
+            if (isCommon) {
+                return num;
             }
         }
-        
-        return -1;
+        return -1; // No common element found
+    }
+
+    // Helper method for binary search
+    private static boolean binarySearch(int[] row, int target) {
+        int low = 0, high = row.length - 1;
+        while (low <= high) {
+            int mid = low + (high - low) / 2;
+            if (row[mid] == target) {
+                return true;
+            } else if (row[mid] < target) {
+                low = mid + 1;
+            } else {
+                high = mid - 1;
+            }
+        }
+        return false;
     }
 
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
+
+        // Read matrix dimensions
         int m = sc.nextInt();
         int n = sc.nextInt();
-        
         int[][] mat = new int[m][n];
+
+        // Read matrix elements
         for (int i = 0; i < m; i++) {
             for (int j = 0; j < n; j++) {
                 mat[i][j] = sc.nextInt();
             }
         }
-        
+
+        // Output the smallest common element
         System.out.println(smallestCommonElement(mat));
         sc.close();
     }
