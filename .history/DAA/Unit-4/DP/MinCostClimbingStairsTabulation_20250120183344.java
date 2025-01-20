@@ -119,7 +119,7 @@ Start at index-1:
   */
 
 
-import java.util.*;
+  import java.util.*;
 class MinCostClimbingStairsTabulation{
   public int minCostClimbingStairs(int[] cost)
    {
@@ -137,8 +137,7 @@ class MinCostClimbingStairsTabulation{
     int  n=sc.nextInt();
     int ar[]=new int[n];
     for(int i=0;i<n;i++)
-      ar[i]=sc.nextInt();
-
+            ar[i]=sc.nextInt();
     System.out.println(new MinCostClimbingStairs().minCostClimbingStairs(ar));
     }
 }

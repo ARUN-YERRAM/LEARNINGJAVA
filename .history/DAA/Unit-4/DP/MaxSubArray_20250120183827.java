@@ -1,4 +1,4 @@
-import java.util.*;
+import java.util.Scanner;
 
 class MaxSubArray {
     public int maxSubArray(int[] A) {

@@ -52,8 +52,9 @@ output=
 
 import java.util.*;
 
-public class LongestCommonSubsequence {
+public class LCS {
 
+    // Recursive function with memoization
     static int recurseMem(String s1, String s2, int n, int m, int[][] dp) {
         // Base case: If either string is exhausted
         if (n == 0 || m == 0) {
@@ -76,6 +77,30 @@ public class LongestCommonSubsequence {
 
         return dp[n][m];
     }
+
+    public static void main(String[] args) {
+        // Example input
+        Scanner sc = new Scanner(System.in);
+        String s1 = sc.next();
+        String s2 = sc.next();
+
+        int n = s1.length();
+        int m = s2.length();
+
+        // Initialize dp array with -1 (uncomputed state)
+        int[][] dp = new int[n + 1][m + 1];
+        for (int[] row : dp) {
+            Arrays.fill(row, -1);
+        }
+
+        // Call the function and print the result
+        int result = recurseMem(s1, s2, n, m, dp);
+        System.out.println("The length of the Longest Common Subsequence is: " + result);
+    }
+}
+
+
+public class LongestCommonSubsequence {
     
     public static int longestCommonSubsequence(String text1, String text2) {
         int m = text1.length();
@@ -104,24 +129,8 @@ public class LongestCommonSubsequence {
     public static void main(String[] args) {
         String text1 = "abcde";
         String text2 = "ace";
-
-        Scanner sc = new Scanner(System.in);
-        // String s1 = sc.next();
-        // String s2 = sc.next();
-
-        int n = text1.length();
-        int m = text2.length();
-
-        // Initialize dp array with -1 (uncomputed state)
-        int[][] dp = new int[n + 1][m + 1];
-        for (int[] row : dp) {
-            Arrays.fill(row, -1);
-        }
-
-        // Call the function and print the result
-        int result = recurseMem(text1, text2, n, m, dp);
-        System.out.println("The length of the Longest Common Subsequence is: " + result);
         
-        System.out.println("Length of Longest Common Subsequence: " + longestCommonSubsequence(text1, text2));
+        System.out.println("Length of Longest Common Subsequence: " 
+                           + longestCommonSubsequence(text1, text2));
     }
 }

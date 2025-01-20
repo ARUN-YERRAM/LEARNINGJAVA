@@ -53,29 +53,6 @@ output=
 import java.util.*;
 
 public class LongestCommonSubsequence {
-
-    static int recurseMem(String s1, String s2, int n, int m, int[][] dp) {
-        // Base case: If either string is exhausted
-        if (n == 0 || m == 0) {
-            return 0;
-        }
-
-        // Check if the result is already computed
-        if (dp[n][m] != -1) {
-            return dp[n][m];
-        }
-
-        // If characters match, increment the count
-        if (s1.charAt(n - 1) == s2.charAt(m - 1)) {
-            dp[n][m] = 1 + recurseMem(s1, s2, n - 1, m - 1, dp);
-        } 
-        // If characters don't match, take the maximum result by skipping a character
-        else {
-            dp[n][m] = Math.max(recurseMem(s1, s2, n - 1, m, dp), recurseMem(s1, s2, n, m - 1, dp));
-        }
-
-        return dp[n][m];
-    }
     
     public static int longestCommonSubsequence(String text1, String text2) {
         int m = text1.length();
@@ -105,23 +82,9 @@ public class LongestCommonSubsequence {
         String text1 = "abcde";
         String text2 = "ace";
 
-        Scanner sc = new Scanner(System.in);
-        // String s1 = sc.next();
-        // String s2 = sc.next();
-
-        int n = text1.length();
-        int m = text2.length();
-
-        // Initialize dp array with -1 (uncomputed state)
-        int[][] dp = new int[n + 1][m + 1];
-        for (int[] row : dp) {
-            Arrays.fill(row, -1);
-        }
-
-        // Call the function and print the result
-        int result = recurseMem(text1, text2, n, m, dp);
-        System.out.println("The length of the Longest Common Subsequence is: " + result);
         
-        System.out.println("Length of Longest Common Subsequence: " + longestCommonSubsequence(text1, text2));
+        
+        System.out.println("Length of Longest Common Subsequence: " 
+                           + longestCommonSubsequence(text1, text2));
     }
 }

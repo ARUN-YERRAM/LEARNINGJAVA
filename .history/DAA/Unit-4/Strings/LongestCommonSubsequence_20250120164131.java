@@ -119,7 +119,7 @@ public class LongestCommonSubsequence {
         }
 
         // Call the function and print the result
-        int result = recurseMem(text1, text2, n, m, dp);
+        int result = recurseMem(s1, s2, n, m, dp);
         System.out.println("The length of the Longest Common Subsequence is: " + result);
         
         System.out.println("Length of Longest Common Subsequence: " + longestCommonSubsequence(text1, text2));

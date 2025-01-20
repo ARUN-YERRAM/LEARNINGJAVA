@@ -75,44 +75,44 @@ public class LIS {
 
 
 
-// public class LongestIncreasingSubsequence {
+public class LongestIncreasingSubsequence {
 
-//     public static int lengthOfLIS(int[] nums) {
-//         if (nums == null || nums.length == 0) {
-//             return 0;
-//         }
+    public static int lengthOfLIS(int[] nums) {
+        if (nums == null || nums.length == 0) {
+            return 0;
+        }
         
-//         // Create an array 'dp' where dp[i] will store the length of LIS ending at index i
-//         int n = nums.length;
-//         int[] dp = new int[n];
+        // Create an array 'dp' where dp[i] will store the length of LIS ending at index i
+        int n = nums.length;
+        int[] dp = new int[n];
         
-//         // Initialize dp array, each element is at least a subsequence of length 1
-//         for (int i = 0; i < n; i++) {
-//             dp[i] = 1;
-//         }
+        // Initialize dp array, each element is at least a subsequence of length 1
+        for (int i = 0; i < n; i++) {
+            dp[i] = 1;
+        }
         
-//         // Iterate over the array and compute the LIS for each element
-//         for (int i = 1; i < n; i++) {
-//             for (int j = 0; j < i; j++) {
-//                 if (nums[i] > nums[j]) {
-//                     dp[i] = Math.max(dp[i], dp[j] + 1);
-//                 }
-//             }
-//         }
+        // Iterate over the array and compute the LIS for each element
+        for (int i = 1; i < n; i++) {
+            for (int j = 0; j < i; j++) {
+                if (nums[i] > nums[j]) {
+                    dp[i] = Math.max(dp[i], dp[j] + 1);
+                }
+            }
+        }
         
-//         // The length of the longest increasing subsequence will be the maximum value in dp array
-//         int lis = 0;
-//         for (int i = 0; i < n; i++) {
-//             lis = Math.max(lis, dp[i]);
-//         }
+        // The length of the longest increasing subsequence will be the maximum value in dp array
+        int lis = 0;
+        for (int i = 0; i < n; i++) {
+            lis = Math.max(lis, dp[i]);
+        }
         
-//         return lis;
-//     }
+        return lis;
+    }
 
-//     public static void main(String[] args) {
-//         int[] nums = {10, 9, 2, 5, 3, 7, 101, 18};
+    public static void main(String[] args) {
+        int[] nums = {10, 9, 2, 5, 3, 7, 101, 18};
         
-//         System.out.println("Length of Longest Increasing Subsequence: " 
-//                            + lengthOfLIS(nums));
-//     }
-// }
+        System.out.println("Length of Longest Increasing Subsequence: " 
+                           + lengthOfLIS(nums));
+    }
+}

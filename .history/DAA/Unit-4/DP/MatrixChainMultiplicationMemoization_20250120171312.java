@@ -87,6 +87,19 @@ public class MatrixChainMultiplicationMemoization {
         return minCost;
     }
 
+    public static int matrixChainMultiplication(int[] dims) {
+        int n = dims.length;
+        int[][] memo = new int[n][n];
+
+        // Initialize memo table with -1
+        for (int[] row : memo) {
+            Arrays.fill(row, -1);
+        }
+
+        // Compute the minimum cost of multiplying matrices from 1 to n-1
+        return matrixChainMemoized(dims, 1, n - 1, memo);
+    }
+
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         int n = sc.nextInt();
@@ -95,9 +108,6 @@ public class MatrixChainMultiplicationMemoization {
             arr[i] = sc.nextInt();
         }
         int[][] memo = new int[n][n];
-        for(int[] row:memo){
-            Arrays.fill(row,-1);
-        }
-        System.out.println(matrixChainMemoized(arr,1,n-1,memo));
+        System.out.println(matrixChainMultiplication(arr));
     }
 }

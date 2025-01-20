@@ -98,6 +98,6 @@ public class MatrixChainMultiplicationMemoization {
         for(int[] row:memo){
             Arrays.fill(row,-1);
         }
-        System.out.println(matrixChainMemoized(arr,1,n-1,memo));
+        System.out.println(matrixChainMemoized(arr,0,n-1,memo));
     }
 }
