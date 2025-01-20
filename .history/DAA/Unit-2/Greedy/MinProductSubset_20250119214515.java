@@ -21,7 +21,7 @@ public class MinProductSubset {
                 countNegatives++;
                 maxNegative = Math.max(maxNegative, num);
             }
-            if (num > 0) {
+            if (num >= 0) {
                 minPositive = Math.min(minPositive, num);
             }
             product *= num;
@@ -37,7 +37,7 @@ public class MinProductSubset {
         if (countNegatives % 2 == 0 && countNegatives != 0) {
             product /= maxNegative;
         }
-        
+
         return product;
     }
 

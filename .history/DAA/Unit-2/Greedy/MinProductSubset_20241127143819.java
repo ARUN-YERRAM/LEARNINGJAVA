@@ -14,7 +14,6 @@ public class MinProductSubset {
         for (int num : arr) {
             if (num == 0) {
                 countZeros++;
-                minPositive = Math.min(minPositive, num);
                 continue; // Ignore zeros in product calculation
             }
             if (num < 0) {
@@ -37,7 +36,7 @@ public class MinProductSubset {
         if (countNegatives % 2 == 0 && countNegatives != 0) {
             product /= maxNegative;
         }
-        
+
         return product;
     }
 
