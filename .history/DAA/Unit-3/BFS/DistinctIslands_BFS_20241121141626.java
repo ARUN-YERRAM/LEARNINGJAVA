@@ -57,6 +57,7 @@ The shapes,
 1     and    1 
 are different.
 */
+
 import java.util.*;
 
 public class DistinctIslands_BFS {
@@ -93,48 +94,34 @@ public class DistinctIslands_BFS {
             for (int j = 0; j < N; j++) {
                 if (wall[i][j] == 1 && !visited[i][j]) {
                     List<int[]> shape = new ArrayList<>();
-                    bfs(wall, visited, i, j, shape);
+                    dfs(wall, visited, i, j, i, j, shape);
                     uniqueShapes.add(normalizeShape(shape));
                 }
             }
         }
+
         return uniqueShapes.size();
     }
 
-    private static void bfs(int[][] wall, boolean[][] visited, int baseX, int baseY, List<int[]> shape) {
+    private static void dfs(int[][] wall, boolean[][] visited, int baseX, int baseY, int x, int y, List<int[]> shape) {
         int M = wall.length;
         int N = wall[0].length;
-        Queue<int[]> queue = new LinkedList<>();
-        queue.add(new int[]{baseX, baseY});
-        visited[baseX][baseY] = true;
 
-        // Define directions for BFS (up, down, left, right)
-        int[][] directions = {{-1, 0}, {1, 0}, {0, -1}, {0, 1}};
-
-        while (!queue.isEmpty()) {
-            int[] current = queue.poll();
-            int x = current[0];
-            int y = current[1];
-
-            // Store relative coordinates
-            shape.add(new int[]{x - baseX, y - baseY});
-
-            // Explore neighbors
-            for (int[] dir : directions) {
-                int newX = x + dir[0];
-                int newY = y + dir[1];
-
-                if (newX >= 0 && newX < M && newY >= 0 && newY < N 
-                        && wall[newX][newY] == 1 && !visited[newX][newY]) {
-                    queue.add(new int[]{newX, newY});
-                    visited[newX][newY] = true;
-                }
-            }
+        if (x < 0 || x >= M || y < 0 || y >= N || wall[x][y] == 0 || visited[x][y]) {
+            return;
         }
+
+        visited[x][y] = true;
+        shape.add(new int[]{x - baseX, y - baseY});
+
+        // Explore all 4 possible directions
+        dfs(wall, visited, baseX, baseY, x - 1, y, shape); // Up
+        dfs(wall, visited, baseX, baseY, x + 1, y, shape); // Down
+        dfs(wall, visited, baseX, baseY, x, y - 1, shape); // Left
+        dfs(wall, visited, baseX, baseY, x, y + 1, shape); // Right
     }
 
     private static String normalizeShape(List<int[]> shape) {
-        // Sort the shape coordinates to normalize
         Collections.sort(shape, (a, b) -> a[0] == b[0] ? a[1] - b[1] : a[0] - b[0]);
         StringBuilder sb = new StringBuilder();
         for (int[] coord : shape) {

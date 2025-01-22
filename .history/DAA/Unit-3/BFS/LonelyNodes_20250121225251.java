@@ -82,33 +82,32 @@ public class LonelyNodes {
         if (root == null) {
             return lonelyNodes;
         }
+        
 
-        Queue<TreeNode> queue = new LinkedList<>();
-        queue.add(root);
-
-        while (!queue.isEmpty()) {
-            TreeNode current = queue.poll();
-
-            // Check if the node has only one child and add that child to the list
-            if (current.left != null && current.right == null) {
-                lonelyNodes.add(current.left.val);
-                queue.add(current.left);
-            } else if (current.right != null && current.left == null) {
-                lonelyNodes.add(current.right.val);
-                queue.add(current.right);
-            }
-
-            // Add both children (if they exist) to the queue for further processing
-            if (current.left != null) {
-                queue.add(current.left);
-            }
-            if (current.right != null) {
-                queue.add(current.right);
-            }
-        }
-
+        dfs(root, lonelyNodes);
         Collections.sort(lonelyNodes);
         return lonelyNodes;
+    }
+
+    private static void dfs(TreeNode node, List<Integer> lonelyNodes) {
+        if (node == null) {
+            return;
+        }
+
+        //System.out.println("Visiting node: " + node.val);
+
+        // Check if the node has only one child and add that child to the list
+        if (node.left != null && node.right == null) {
+            //System.out.println("Lonely node found: " + node.left.val);
+            lonelyNodes.add(node.left.val);
+        } else if (node.right != null && node.left == null) {
+            //System.out.println("Lonely node found: " + node.right.val);
+            lonelyNodes.add(node.right.val);
+        }
+
+        // performing recursion on the left and right children
+        dfs(node.left, lonelyNodes);
+        dfs(node.right, lonelyNodes);
     }
 
     // Method to create a tree from user input
@@ -132,6 +131,10 @@ public class LonelyNodes {
                     TreeNode leftChild = new TreeNode(Integer.parseInt(values[i]));
                     current.left = leftChild;
                     queue.add(leftChild);
+                    //System.out.println("  Left child: " + leftChild.val);
+                } else {
+                    //System.out.println("  Left child: null");
+                    queue.add(null);
                 }
                 i++;
             }
@@ -142,11 +145,14 @@ public class LonelyNodes {
                     TreeNode rightChild = new TreeNode(Integer.parseInt(values[i]));
                     current.right = rightChild;
                     queue.add(rightChild);
+                    //System.out.println("  Right child: " + rightChild.val);
+                } else {
+                    //System.out.println("  Right child: null");
+                    queue.add(null);
                 }
                 i++;
             }
-        }
-        return root;
+        }        return root;
     }
 
     public static void main(String[] args) {

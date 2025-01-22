@@ -104,6 +104,7 @@ public class BoundaryTraversal {
             }
             i++;
         }
+
         return root;
     }
 
