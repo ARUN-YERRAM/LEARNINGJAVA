@@ -1,14 +1,5 @@
 import java.util.*;
 
-class Pair {
-    int node;
-    int distance;
-
-    public Pair(int distance, int node) {
-        this.node = node;
-        this.distance = distance;
-    }
-}
 
 public class PrimMST {
     // Function to find the sum of weights of edges of the Minimum Spanning Tree.
@@ -93,5 +84,16 @@ public class PrimMST {
         int sum = spanningTree(V, adj, parent);
         System.out.println("The sum of all the edge weights: " + sum);
         printMST(parent, adj);
+    }
+}
+
+
+class Pair {
+    int node;
+    int distance;
+
+    public Pair(int distance, int node) {
+        this.node = node;
+        this.distance = distance;
     }
 }
