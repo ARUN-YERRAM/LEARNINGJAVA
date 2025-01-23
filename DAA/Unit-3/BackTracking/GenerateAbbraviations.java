@@ -68,7 +68,6 @@ class GenerateAbbreviations {
             builder.append(word.charAt(i)); // Append the current character
             backtrack(result, builder, word, i + 1, 0); // Reset abbreviation count
         }
-
         // Backtrack to restore builder's original state
         builder.setLength(len);
     }

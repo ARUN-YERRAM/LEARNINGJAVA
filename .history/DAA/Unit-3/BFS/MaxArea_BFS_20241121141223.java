@@ -87,6 +87,7 @@ public class MaxArea_BFS {
                 }
             }
         }
+
         mx = Math.max(mx, cnt);
     }
 

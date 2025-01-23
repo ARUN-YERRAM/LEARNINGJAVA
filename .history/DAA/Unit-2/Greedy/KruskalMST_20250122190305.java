@@ -40,6 +40,7 @@ public class KruskalMST {
         for (Edge e : mstEdges) {
             System.out.println(e.src + " -- " + e.dest + " == " + e.weight);
         }
+
         return mstWt;
     }
 

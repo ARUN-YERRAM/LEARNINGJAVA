@@ -32,14 +32,16 @@ public class KruskalMST {
             if (ds.findUPar(u) != ds.findUPar(v)) {
                 mstWt += wt;
                 mstEdges.add(edge); // Add edge to MST
-                ds.unionByRank(u, v);
+                ds.unionBySize(u, v);
             }
         }
+
         // Print MST edges
         System.out.println("Edges in the MST:");
         for (Edge e : mstEdges) {
             System.out.println(e.src + " -- " + e.dest + " == " + e.weight);
         }
+
         return mstWt;
     }
 
@@ -76,7 +78,6 @@ public class KruskalMST {
         System.out.println("The sum of all the edge weights: " + mstWt);
     }
 }
-
 
 
 class DisjointSet {
@@ -147,16 +148,3 @@ class Edge implements Comparable<Edge> {
 
 
 
-// class Edge implements Comparable<Edge>{
-//     int src,dest,weight;
-
-//     Edge(int _src,int _dest,int _wt){
-//         this.src = _src;
-//         this.dest = _dest;
-//         this.weight = _wt;
-//     }
-
-//     public int to_compare(Edge compareEdge) {
-//         return this.weight - compareEdge.weight;
-//     }
-// }

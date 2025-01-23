@@ -41,36 +41,34 @@ Sample Output-2:
 [1s1, 1se, 2e, 3, c1e, c2, cs1, cse]
 */
 
+
 import java.util.*;
 
 class GenerateAbbreviations {
     public List<String> makeShortcutWords(String word) {
-        TreeSet<String> ans = new TreeSet<>(); // Use TreeSet to automatically sort results lexicographically
-        backtrack(ans, new StringBuilder(), word, 0, 0);
-        return new ArrayList<>(ans); // Convert TreeSet to List
+        List<String> result = new ArrayList<>();
+        backtrack(result, new StringBuilder(), word, 0, 0);
+        Collections.sort(result); // Ensure lexicographical order
+        return result;
     }
 
-    /* i is the current position, k is the count of consecutive abbreviated characters */
-    private void backtrack(Set<String> ans, StringBuilder builder, String word, int i, int k) {
-        int len = builder.length(); // keep the length of builder
+    private void backtrack(List<String> result, StringBuilder builder, String word, int i, int k) {
+        int len = builder.length(); // Keep track of the original length
 
         // Base case: reached the end of the word
         if (i == word.length()) {
-            if (k != 0)
-                builder.append(k); // append the last k if non-zero
-            ans.add(builder.toString());
+            if (k != 0) builder.append(k); // Append any remaining abbreviation count
+            result.add(builder.toString());
         } else {
-            // Branch where the current character is abbreviated
-            backtrack(ans, builder, word, i + 1, k + 1);
+            // Branch 1: Abbreviate the current character
+            backtrack(result, builder, word, i + 1, k + 1);
 
-            // Branch where the current character is kept
-            if (k != 0)
-                builder.append(k); // append the abbreviation count
-            builder.append(word.charAt(i));
-            backtrack(ans, builder, word, i + 1, 0);
+            // Branch 2: Keep the current character
+            if (k != 0) builder.append(k); // Append abbreviation count if any
+            builder.append(word.charAt(i)); // Append the current character
+            backtrack(result, builder, word, i + 1, 0); // Reset abbreviation count
         }
-
-        // Backtrack: reset builder to its original state
+        // Backtrack to restore builder's original state
         builder.setLength(len);
     }
 

@@ -1,3 +1,39 @@
+/*
+Given an array of integers nums, sort the array in ascending order and return it.
+
+You must solve the problem without using any built-in functions in O(nlog(n)) time complexity 
+and with the smallest space complexity possible.
+
+Constraints:
+
+1 <= nums.length <= 5 * 104
+-5 * 104 <= nums[i] <= 5 * 104
+
+Sample Input-1:
+-------------
+Enter Array size
+5
+Enter numbers 
+23 17 19 34 29
+
+Sample Output-1:
+---------------
+Given Array is : 23 17 19 34 29 
+Sorted Array is : 17 19 23 29 34 
+
+Sample Input-2:
+---------------
+Enter Array size
+7
+Enter numbers 
+26 39 98 53 49 10 78
+
+Sample Output-2:
+---------------
+Given Array is : 26 39 98 53 49 10 78 
+Sorted Array is : 10 26 39 49 53 78 98
+
+*/
 import java.util.Scanner;
 
 class Mergesort_iterative {
@@ -40,16 +76,12 @@ class Mergesort_iterative {
         }
     }
 
-    private static void iterativeMergeSort(int[] arr) {
-        int n = arr.length;
-
-        for (int currSize = 1; currSize < n; currSize *= 2) {
-            for (int left = 0; left < n - 1; left += 2 * currSize) {
-                int mid = Math.min(left + currSize - 1, n - 1);
-                int right = Math.min(left + 2 * currSize - 1, n - 1);
-
-                merge(arr, left, mid, right);
-            }
+    private static void mergeSort(int[] arr, int left, int right) {
+        if (left < right) {
+            int mid = left + (right - left) / 2;
+            mergeSort(arr, left, mid);
+            mergeSort(arr, mid + 1, right);
+            merge(arr, left, mid, right);
         }
     }
 
@@ -71,7 +103,7 @@ class Mergesort_iterative {
         }
         System.out.println();
 
-        iterativeMergeSort(nums);
+        mergeSort(nums, 0, n - 1);
 
         System.out.print("Sorted Array is : ");
         for (int num : nums) {

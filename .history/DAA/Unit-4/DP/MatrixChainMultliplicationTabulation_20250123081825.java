@@ -80,7 +80,6 @@ public class MatrixChainMultiplicationTabulation{
                 }
             }
         }
-
         return dp[1][n - 1];
     }
 
